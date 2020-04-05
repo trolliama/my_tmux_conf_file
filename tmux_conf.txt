@@ -1,0 +1,56 @@
+unbind C-b
+set-option -g prefix C-x
+bind-key C-x send-prefix
+
+# split panes using | and -
+bind \ split-window -h
+bind - split-window -v
+unbind '"'
+unbind %
+
+# resize panes
+bind-key -r j resize-pane -D 5
+bind-key -r k resize-pane -U 5
+bind-key -r h resize-pane -L 5
+bind-key -r l resize-pane -R 5
+
+# switch panes using Alt-arrow without prefix
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+######################
+### DESIGN CHANGES ###
+######################
+
+# loud or quiet?
+set -g visual-activity on
+set -g visual-bell off
+set -g visual-silence off
+setw -g monitor-activity on
+set -g bell-action none
+
+# interface
+#------------
+# pane
+#------------
+set -g mouse on
+set -g pane-border-style fg=black
+set -g pane-active-border-style fg=blue
+
+#------------
+# tabs
+#------------
+setw -g window-status-format "$#[fg=white](#I)#W "
+setw -g window-status-current-format "#[fg=colour88]$#[fg=white](#I)#W "
+
+#------------
+# status bar
+#-----------
+set -g status-fg white
+set -g status-bg colour8
+set -g status-justify centre
+set -g status-right "%a %m-%d %H:%M"
+set -g status-left-length 30
+set -g status-left "[#{session_windows}] #[fg=colour204]#(ifconfig tun0 | grep 'inet ' | awk '{print $2}') "
